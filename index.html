@@ -3,34 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <title>GitHub Stalker</title>
-  <style>
-    body { font-family: Arial; padding: 20px; }
-    input { padding: 5px; }
-    img { width: 100px; border-radius: 10px; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>GitHub Stalker</h1>
-  <input type="text" id="username" placeholder="Enter GitHub username">
-  <button onclick="stalk()">Stalk</button>
-  <div id="result"></div>
+  <div class="container">
+    <h1>GitHub Stalker</h1>
+    <div class="search-box">
+      <input type="text" id="username" placeholder="Enter GitHub username">
+      <button onclick="stalk()">Stalk</button>
+    </div>
+    <div id="result" class="card"></div>
+  </div>
 
   <script>
     async function stalk() {
-      const user = document.getElementById("username").value;
+      const user = document.getElementById("username").value.trim();
+      const result = document.getElementById("result");
+      result.innerHTML = "Loading...";
+
       const res = await fetch(`/api/github?user=${user}`);
       const data = await res.json();
 
-      if (data.error) return document.getElementById("result").innerText = data.error;
+      if (data.error) return result.innerHTML = `<p class="error">${data.error}</p>`;
 
-      document.getElementById("result").innerHTML = `
-        <img src="${data.profile_pic}" alt="Profile Picture"><br>
-        <strong>${data.nickname} (@${data.username})</strong><br>
-        ${data.bio || ''}<br>
-        Location: ${data.location || 'N/A'}<br>
-        Public Repos: ${data.public_repo}<br>
-        Followers: ${data.followers}<br>
-        <a href="${data.url}" target="_blank">Visit Profile</a>
+      result.innerHTML = `
+        <img src="${data.profile_pic}" class="avatar" alt="Profile Picture">
+        <h2>${data.nickname || '(No name)'} <span>@${data.username}</span></h2>
+        <p>${data.bio || 'No bio available.'}</p>
+        <ul>
+          <li><strong>Location:</strong> ${data.location || 'N/A'}</li>
+          <li><strong>Repos:</strong> ${data.public_repo}</li>
+          <li><strong>Followers:</strong> ${data.followers}</li>
+          <li><strong>Following:</strong> ${data.following}</li>
+        </ul>
+        <a href="${data.url}" target="_blank" class="profile-btn">Visit Profile</a>
       `;
     }
   </script>
