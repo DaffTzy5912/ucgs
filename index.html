@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GitHub Stalker</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input { padding: 5px; }
+    img { width: 100px; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <h1>GitHub Stalker</h1>
+  <input type="text" id="username" placeholder="Enter GitHub username">
+  <button onclick="stalk()">Stalk</button>
+  <div id="result"></div>
+
+  <script>
+    async function stalk() {
+      const user = document.getElementById("username").value;
+      const res = await fetch(`/api/github?user=${user}`);
+      const data = await res.json();
+
+      if (data.error) return document.getElementById("result").innerText = data.error;
+
+      document.getElementById("result").innerHTML = `
+        <img src="${data.profile_pic}" alt="Profile Picture"><br>
+        <strong>${data.nickname} (@${data.username})</strong><br>
+        ${data.bio || ''}<br>
+        Location: ${data.location || 'N/A'}<br>
+        Public Repos: ${data.public_repo}<br>
+        Followers: ${data.followers}<br>
+        <a href="${data.url}" target="_blank">Visit Profile</a>
+      `;
+    }
+  </script>
+</body>
+</html>
