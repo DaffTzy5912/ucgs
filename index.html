@@ -31,11 +31,11 @@
         <h2>${data.nickname || '(No name)'} <span>@${data.username}</span></h2>
         <p>${data.bio || 'No bio available.'}</p>
         <ul>
-          <li><strong>Location:</strong> ${data.location || 'N/A'}</li>
-          <li><strong>Repos:</strong> ${data.public_repo}</li>
-          <li><strong>Followers:</strong> ${data.followers}</li>
-          <li><strong>Following:</strong> ${data.following}</li>
-        </ul>
+  <li><strong>📍 Location:</strong> ${data.location || 'N/A'}</li>
+  <li><strong>📦 Repos:</strong> ${data.public_repo}</li>
+  <li><strong>👥 Followers:</strong> ${data.followers}</li>
+  <li><strong>➡️ Following:</strong> ${data.following}</li>
+</ul>
         <a href="${data.url}" target="_blank" class="profile-btn">Visit Profile</a>
       `;
     }
