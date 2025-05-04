@@ -229,7 +229,6 @@
       
       if (!user) return;
       
-      // Show loading state
       result.innerHTML = '<div class="loading">Fetching profile data</div>';
       result.classList.add('active');
       
@@ -279,7 +278,6 @@
       }
     }
 
-    // Listen for Enter key in the input field
     document.getElementById("username").addEventListener("keyup", function(event) {
       if (event.key === "Enter") {
         stalk();
