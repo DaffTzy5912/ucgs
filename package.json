@@ -1,0 +1,12 @@
+{
+  "name": "github-stalker",
+  "version": "1.0.0",
+  "description": "GitHub user stalker using GitHub API",
+  "main": "api/github.js",
+  "scripts": {
+    "start": "node api/github.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.8"
+  }
+}
